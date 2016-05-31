@@ -1,18 +1,15 @@
-//BEDjs - Converts a BED file into a JSON object
-//BED Format: https://genome.ucsc.edu/FAQ/FAQformat.html#format1
+//bedJS - Converts a BED file into a JSON object
+//BED Format: http://Mar2016.archive.ensembl.org/info/website/upload/bed.html
 
 //Import dependencies
 var fs = require('fs');
 
 //BED fields list
-var fields = ['chr','start','end','name','score','scoreRange','strand','thickStart','thickEnd',
+var fields = ['chromosome','start','end','name','score','strand','thickStart','thickEnd',
 'itemRgb','blockCount','blockSizes','blockStarts'];
 
-//BED fields type
-var fieldsT = ['str','int','int','str','int','str','str','int','int','str','int','str','str'];
-
 //Read a BED file
-function BEDRead(file)
+exports.Read = function(file)
 {
   //Output object
   var out = [];
@@ -32,69 +29,74 @@ function BEDRead(file)
     //Create the new object
     var obj = {};
 
+    //Get the line
+    var line = bed[i];
+
+    //Check the line
+    if(line === '' || line === ' '){ continue; }
+
     //Split the line by tab
-    var split = bed[i].split('\t');
+    line = line.split('\t');
 
     //Read all
-    for(var j = 0; j < split.length; j++)
+    for(var j = 0; j < line.length; j++)
     {
       //Check for blank
-      if(split[j] === ''){ break; }
+      if(line[j] === ''){ break; }
 
       //Add the item
-      obj[fields[j]] = split[j];
+      obj[fields[j]] = line[j];
     }
 
-    //Check if the new object is not empty
-    if(typeof obj.chr !== 'undefined')
-    {
-      //Change the start string to int
-      obj.start = parseInt(obj.start);
+    //Change the start string to int
+    if(typeof obj.start !== 'undefined'){ obj.start = parseInt(obj.start); };
 
-      //Change the end string to int
-      obj.end = parseInt(obj.end);
+    //Change the end string to int
+    if(typeof obj.end !== 'undefined'){ obj.end = parseInt(obj.end); };
 
-      //Change the score
-      if(typeof obj.score !== 'undefined'){ obj.score = parseInt(obj.score); };
+    //Change the score
+    if(typeof obj.score !== 'undefined'){ obj.score = parseInt(obj.score); };
 
-      //Change the thickStart
-      if(typeof obj.thickStart !== 'undefined'){ obj.thickStart = parseInt(obj.thickStart); }
+    //Change the thickStart
+    if(typeof obj.thickStart !== 'undefined'){ obj.thickStart = parseInt(obj.thickStart); }
 
-      //Change the thickEnd
-      if(typeof obj.thickEnd !== 'undefined'){ obj.thickEnd = parseInt(obj.thickEnd); }
+    //Change the thickEnd
+    if(typeof obj.thickEnd !== 'undefined'){ obj.thickEnd = parseInt(obj.thickEnd); }
 
-      //Change blockCount
-      if(typeof obj.blockCount !== 'undefined'){ obj.blockCount = parseInt(obj.blockCount); }
+    //Change blockCount
+    if(typeof obj.blockCount !== 'undefined'){ obj.blockCount = parseInt(obj.blockCount); }
 
-      //Push the new object
-      out.push(obj);
-    }
+    //Push the new object
+    out.push(obj);
   }
 
   //Return the output
   return out;
-}
+};
 
 //Save a BED file from object
-function BEDSave(file, bed)
+exports.Write = function(file, bed)
 {
   //Initialize the data string
   var data = '';
 
-  //Read all the bed object
+  //Read all the bed objects
   for(var i = 0; i < bed.length; i++)
   {
+    //Get the object
+    var obj = bed[i];
+
     //Save all the content
     for(var j = 0; j < fields.length; j++)
     {
       //Check the typeof
-      if(typeof bed[i][fields[j]] === 'undefined'){ break; }
+      if(typeof obj[fields[j]] === 'undefined'){ break; }
 
       //Check for add a tabulator
-      if(j > 0){ data = data + '\t'; }
+      if(j !== 0){ data = data + '\t'; }
 
       //Save the content
-      data = data + bed[i][fields[j]];
+      data = data + obj[fields[j]];
     }
 
     //End the line
@@ -103,68 +105,59 @@ function BEDSave(file, bed)
 
   //Save the file
   fs.writeFileSync(file, data);
-}
+};
 
 //BED group regions with the same name
-function BEDGroup(file)
+exports.GroupByName = function(bed)
 {
-  //Initialize the bed content
-  var bed = file;
-
-  //Check the typeof
-  if(typeof file === 'string')
-  {
-    //The input is a file path, get the content
-    bed = BEDRead(bed);
-  }
-
   //New output
   var out = [];
 
-  //Check if the name key exists
-  if(typeof bed[0].name === 'undefined')
-  {
-    //Show error
-    console.log('Error: no name key on the BED file');
+  //Names
+  var names = {};
 
-    //Return empty array
-    return [];
-  }
-
-  //Acutal chromosome and name
-  var nchr = '', nname = '';
-
-  //Actual index
-  var k = -1;
-
-  //Read all
+  //Read all the bed objects
   for(var i = 0; i < bed.length; i++)
   {
-    //Check if chromosome and name is the same
-    if(bed[i].chr === nchr && bed[i].name === nname)
+    //Get the bed object
+    var obj = bed[i];
+
+    //Get the bed name
+    var name = obj.name;
+
+    //Check the name
+    if(typeof name === 'undefined')
     {
-      //Change the region end
-      out[k].end = bed[i].end;
+      //Show error
+      console.error('All bed objects must have a name...');
+
+      //Exit
+      return [];
     }
-    else
+
+    //Find the name
+    if(typeof names[name] === 'undefined')
     {
-      //Increment the index
-      k = k + 1;
+      //Save the region
+      out.push(obj);
 
-      //Add the first element of the new region
-      out.push(bed[i]);
+      //Save the name and the index
+      names[name] = out.length - 1;
 
-      //Save the actual chromosome
-      nchr = bed[i].chr;
-
-      //Save the actual name
-      nname = bed[i].name;
+      //Next bed object
+      continue;
     }
+
+    //Get the output index
+    var index = names[name];
+
+    //Update the start position
+    out[index].start = Math.min(out[index].start, obj.start);
+
+    //Update the end position
+    out[index].end = Math.max(out[index].end, obj.end);
   }
 
-  //Return the new output
+  //Return the new object
   return out;
-}
-
-//Exports to node
-module.exports = { Read: BEDRead, Save: BEDSave, Group: BEDGroup };
+};
