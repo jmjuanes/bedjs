@@ -67,3 +67,7 @@ Save an array with the previous format to a file.
 ```javascript
 bedJS.Write('newFile.bed', bed); //Save to a file
 ```
+
+## License
+
+Under the [MIT LICENSE](./LICENSE).
