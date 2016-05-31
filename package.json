@@ -7,5 +7,5 @@
   "keywords": [ "bioinformatics", "bed", "genomic", "genome" ],
   "author": "Josemi Juanes <josemijuanes@gmail.com>",
   "license": "MIT",
-  "dependencies": { }
+  "dependencies": {  }
 }
