@@ -60,10 +60,10 @@ var bed = bedJS.Read('example.bed');
 */
 ```
 
-### bedJS.Save(file, object)
+### bedJS.Write(file, object)
 
 Save an array with the previous format to a file.
 
 ```javascript
-bedJS.Save('newFile.bed', bed); //Save to a file
+bedJS.Write('newFile.bed', bed); //Save to a file
 ```
