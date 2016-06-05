@@ -54,13 +54,40 @@ var Client =
 	//GetFasta method
 	GetFasta: function(args)
 	{
-
+		
 	},
 
 	//Spec method
 	Spec: function(args)
 	{
+		//Import the bed specification
+		var bed = require('./config/bed.json');
 
+		//Show line blank
+		console.log('');
+
+		//Show the bed description
+		console.log('A BED file is a tab delimited containing one feature of interest per line.');
+		console.log('Each line must contain at least the three first fields listed below:');
+
+		//Read all the bed fields
+		for(var i = 0; i < bed.length; i++)
+		{
+			//Get the field
+			var field = bed[i];
+
+			//Get the space
+			var space = '';
+
+			//Add the spaces
+			for(var k = field.id.length; k < 15; k++){ space = space + ' '; }
+
+			//Show the option
+			console.log('   ' + field.id + space + field.description);
+		}
+
+		//Show line blank
+		console.log('');
 	},
 
 	//Help function
