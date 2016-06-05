@@ -1,0 +1,33 @@
+[
+	{
+		"command": "getfasta",
+		"description": "Extract sequence from a Fasta file.",
+		"usage": "bedjs getfasta --fa <fasta> [OPTIONS] [--region <region> ][--bed <bed> ][--out <output>]",
+		"options":
+		{
+			"--fa": "Fasta file to extract the sequence",
+			"--region": "A comma-separated list with regions",
+			"--bed": "BED file containing the regions",
+			"--out": "File to save the sequences",
+			"--strand": "Extract the sequence in the orientation defined by the regions"
+		}
+	},
+	{
+		"command": "index",
+		"description": "Index a Fasta file.",
+		"usage": "bedjs index <fasta>",
+		"options": { }
+	},
+	{
+		"command": "spec",
+		"description": "Display BED specification.",
+		"usage": "bedjs spec",
+		"options": { }
+	},
+	{
+		"command": "help",
+		"description": "Display this help or the documentation for a given command.",
+		"usage": "bedjs help <command>",
+		"options": { }
+	}
+]
