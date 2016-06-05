@@ -7,6 +7,7 @@
   "repository": { "type": "git", "url": "https://github.com/jmjuanes/bedjs.git" },
   "keywords": [ "bioinformatics", "bed", "genomic", "genome" ],
   "author": "Josemi Juanes <josemijuanes@gmail.com>",
+  "homepage": "https://github.com/jmjuanes/bedjs",
   "license": "MIT",
-  "dependencies": { "n-readlines": "0.2.1", "stattic-pstat": "0.1.0" }
+  "dependencies": { "get-args": "1.0.0", "stattic-pstat": "0.1.0" }
 }
