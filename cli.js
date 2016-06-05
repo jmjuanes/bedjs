@@ -4,8 +4,12 @@
 var getArgs = require('get-args');
 
 //Import libs
-var BedIndexFasta = require('./lib/index-fasta.js');
-var BedGetFasta = require('./lib/get-fasta.js');
+var bedIndexFasta = require('./lib/index-fasta.js');
+var bedGetFasta = require('./lib/get-fasta.js');
+var bedRegion = require('./lib/region.js');
+
+//Import utils
+var SaveFasta = require('./lib/utils/save-fasta.js');
 
 //Client object
 var Client =
@@ -48,13 +52,95 @@ var Client =
 		}
 
 		//Index the fasta file
-		BedIndexFasta(args.arguments[0]);
+		bedIndexFasta(args.arguments[0]);
 	},
 
 	//GetFasta method
 	GetFasta: function(args)
 	{
-		
+		//Options object
+		var opt = { strand: false, based: 0 };
+
+		//Get the options object
+		var options = args.options;
+
+		//Check the strand
+		if(typeof options.strand !== 'undefined'){ opt.strand = true; }
+
+		//Check the pased coordinate
+		if(typeof options.based !== 'undefined')
+		{
+			//Get the value
+			var v = parseInt(options.based);
+
+			//Check for not a number
+			if(isNaN(v) === true || (v !== 0 && v !== 1))
+			{
+				//Show error in console
+				return console.log('ERROR: invalid based coordinate system "' + options.based + '". Use 0 or 1.');
+			}
+
+			//Save the value
+			opt.based = v;
+		}
+
+		//Check the fasta file
+		if(typeof options.fa === 'undefined')
+		{
+			//Show error
+			return console.log('ERROR: you must specify the reference fasta file.');
+		}
+
+		//Save the fasta file path
+		var fasta = options.fa;
+
+		//Check the bed file or region
+		if(typeof options.bed === 'undefined' && typeof options.region === 'undefined')
+		{
+			//Show error
+			return console.log('Error: you must specify a region or a bed file.');
+		}
+
+		//Check the bed
+		if(typeof options.bed !== 'undefined')
+		{
+			//SAve the bed file path
+			var bed = options.bed;
+		}
+		else
+		{
+			//Parse the region
+			var bed = bedRegion.Parse(options.region);
+		}
+
+		//Get the sequence
+		var seq = bedGetFasta(fasta, bed, opt);
+
+		//Check the output file
+		if(typeof options.out !== 'undefined')
+		{
+			//Save to a file
+			return SaveFasta(options.out, seq);
+		}
+
+		//Read all sequences
+		for(var i = 0; i < seq.length; i++)
+		{
+			//Get the sequence
+			var s = seq[i];
+
+			//Add a line break
+			console.log('');
+
+			//Display the head
+			console.log('>' + s.head);
+
+			//Display the sequence
+			console.log(s.sequence);
+		}
+
+		//Add a line break
+		console.log('');
 	},
 
 	//Spec method
