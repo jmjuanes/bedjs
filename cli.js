@@ -222,6 +222,9 @@ var Client =
 		//Display the command description
 		console.log('Description:  ' + help.description);
 
+		//Check for no options
+		if(help.options.length === 0){ return; }
+
 		//Display a line break
 		console.log('');
 
