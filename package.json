@@ -1,6 +1,6 @@
 {
   "name": "bedjs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Manage BED (Browser Extensible Data) files with Node.JS (Bioinformatics)",
   "main": "index.js",
   "bin": { "bedjs": "cli.js" },
