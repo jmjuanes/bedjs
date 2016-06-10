@@ -17,8 +17,8 @@ var Client =
 	//Commands
 	commands: require('./config/commands.json'),
 
-	//Init function
-	Init: function(args)
+	//Main function
+	Main: function(args)
 	{
 		//Get the command
 		var command = (args.command === '') ? 'help' : args.command;
@@ -291,4 +291,4 @@ var Client =
 };
 
 //Run the init function
-Client.Init(getArgs());
+Client.Main(getArgs());
