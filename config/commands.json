@@ -1,0 +1,6 @@
+{
+	"getfasta": { "run": "GetFasta", "index": 0 },
+	"indexfasta": { "run": "IndexFasta", "index": 1 },
+	"spec": { "run": "Spec", "index": 2 },
+	"help": { "run": "Help", "index": 3 }
+}
