@@ -1,0 +1,14 @@
+[
+	{ "id": "chromosome", "type": "string", "description": "Chromosome name" },
+	{ "id": "start", "type": "integer", "description": "Start position of the feature" },
+	{ "id": "end", "type": "integer", "description": "End position of the feature" },
+	{ "id": "name", "type": "string", "description": "Name of the line" },
+	{ "id": "score", "type": "integer", "description": "Score between 0 and 1000" },
+	{ "id": "strand", "type": "string", "description": "Strand of the feature ('+' or '-')" },
+	{ "id": "thickStart", "type": "integer", "description": "Start position at which the feature is drawn thickly" },
+	{ "id": "thickEnd", "type": "integer", "description": "End position at which the feature is drawn thickly" },
+	{ "id": "itemRgb", "type": "string", "description": "RGB value in format R,G,B" },
+	{ "id": "blockCount", "type": "integer", "description": "The number of blocks (exons) in the BED line" },
+	{ "id": "blockSizes", "type": "string", "description": "A comma-separated list of the block sizes" },
+	{ "id": "blockStarts", "type": "string", "description": "A comma-separated list of block starts" }
+]
