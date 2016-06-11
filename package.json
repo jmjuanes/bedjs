@@ -3,11 +3,10 @@
   "version": "1.0.1",
   "description": "Manage BED (Browser Extensible Data) files with Node.JS (Bioinformatics)",
   "main": "index.js",
-  "bin": { "bedjs": "cli.js" },
   "repository": { "type": "git", "url": "https://github.com/jmjuanes/bedjs.git" },
   "keywords": [ "bioinformatics", "bed", "genomic", "genome" ],
   "author": "Josemi Juanes <josemijuanes@gmail.com>",
   "homepage": "https://github.com/jmjuanes/bedjs",
   "license": "MIT",
-  "dependencies": { "get-args": "1.0.0", "stattic-pstat": "0.1.0" }
+  "dependencies": { "stattic-pstat": "0.1.0" }
 }
