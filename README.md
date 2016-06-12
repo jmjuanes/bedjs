@@ -146,6 +146,54 @@ This will return the following array:
 ]
 ```
 
+### bedJS.Fasta
+
+A set of tools to work with Fasta files.
+
+#### bedJS.Fasta.Index(file)
+
+Create an index of your Fasta file in JSON format. This index is required if you want to use the `bedJS.Fasta.Get` function.
+
+```javascript
+bedJS.Fasta.Index('fasta_file.fa');
+```
+
+The previous command will generate a file called `fasta_file.fa.json`. Once you have created the index file, you don't need to run it again.
+
+#### bedJS.Fasta.Get(fasta, bed, opt)
+
+A method to extract sequences from a Fasta file using the regions delimited in your BED file or in your BED object. The inputs of this method are:
+
+- `fasta`: the path of your fasta file where you will extract the sequence.
+- `bed`: a BED object or the path to a BED file with the regions where you want to extract the sequence.
+- `opt`: an object with the following keys:
+  - `strand`: set it to `true` if you want to extract the sequence with the same orientation defined in the BED file. Default is `false`.
+
+This will return an array with the sequence for each BED object.
+
+Note that you must run `bedJS.Fasta.Index` to index the Fasta file before run this function.
+
+Example of a Fasta file:
+```
+test.fa:
+>1
+ACTGAAAAACCCGGTTTAACGTACCGG
+```
+
+Example of a bed file
+```
+test.bed:
+1 5 10
+```
+
+If you run:
+
+```javascript
+var sequence = bedJS.Fasta.Get('test.fa', 'test.bed', { strand: false });
+
+// -> sequence = [ { "head": "1:5-10", "sequence": "AAAAC"}] 
+```
+
 ## License
 
 &copy; [MIT LICENSE](./LICENSE) Jose M. Juanes.
