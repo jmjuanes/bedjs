@@ -58,6 +58,45 @@ var Test =
 
 		//Show the bed
 		Test.ShowBED(collapsed);
+	},
+
+	//Index a fasta file
+	IndexFasta: function()
+	{
+		//Reference fasta
+		var reference = './getfasta.fa';
+
+		//Index the reference file
+		bedJS.Fasta.Index(reference);
+	},
+
+	//Get from fasta file
+	GetFasta: function()
+	{
+		//Reference fasta
+		var reference = './getfasta.fa';
+
+		//Bed with region
+		var bed = './getfasta.bed';
+
+		//Read the bed file
+		var bedContent = bedJS.Read(bed);
+
+		//Get fasta sequence
+		var fasta = bedJS.Fasta.Get(reference, bedContent);
+
+		//Show in console
+		for(var i = 0; i < fasta.length; i++)
+		{
+			//Get the bed region
+			var region = bedContent[i];
+
+			//Show region
+			console.log('Region:' + region.chromosome + ':' + region.start + '-' + region.end);
+
+			//Show expected and generated
+			console.log('Expected: ' + region.name + '   Generated: ' + fasta[i].sequence);
+		}
 	}
 
 };
