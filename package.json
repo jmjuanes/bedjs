@@ -1,6 +1,6 @@
 {
   "name": "bedjs",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Manage BED (Browser Extensible Data) files with Node.JS (Bioinformatics)",
   "main": "index.js",
   "repository": { "type": "git", "url": "https://github.com/jmjuanes/bedjs.git" },
