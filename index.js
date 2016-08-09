@@ -1,17 +1,15 @@
-//bedJS - Converts a BED file into a JSON object
-
 //Exports to node
 module.exports =
 {
-	//Read a BED file
-	Read: require('./lib/read.js'),
+  //Read a BED file
+  Read: require('./lib/read.js'),
 
-	//Save to a BED file
-	Write: require('./lib/write.js'),
+  //Save to a BED file
+  Write: require('./lib/write.js'),
 
-	//Work with fasta files
-	Fasta: require('./lib/fasta.js'),
+  //Work with fasta files
+  Fasta: require('./lib/fasta.js'),
 
-	//Collapse bed files
-	Collapse: require('./lib/collapse.js')
+  //Collapse bed files
+  Collapse: require('./lib/collapse.js')
 };
