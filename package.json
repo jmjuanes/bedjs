@@ -8,5 +8,5 @@
   "author": "Josemi Juanes <josemijuanes@gmail.com>",
   "homepage": "https://github.com/jmjuanes/bedjs",
   "license": "MIT",
-  "dependencies": { "stattic-pstat": "0.1.0" }
+  "dependencies": { "pstat": "1.0.2", "readl": "0.0.1" }
 }
