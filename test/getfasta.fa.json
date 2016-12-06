@@ -1,1 +1,27 @@
-{"chromosomes":{"1":{"start":3,"bases":5,"end":35,"length":0,"head":">1"},"2":{"start":38,"bases":9,"end":67,"length":0,"head":">2"}},"length":11,"file":"getfasta.fa"}
+{
+  "chromosomes": {
+    "1": {
+      "start": 3,
+      "bases": 5,
+      "end": 35,
+      "length": 0,
+      "head": ">1"
+    },
+    "2": {
+      "start": 38,
+      "bases": 9,
+      "end": 67,
+      "length": 0,
+      "head": ">2"
+    },
+    "3": {
+      "start": 70,
+      "bases": 9,
+      "end": 90,
+      "length": 0,
+      "head": ">3"
+    }
+  },
+  "length": 14,
+  "file": "getfasta.fa"
+}
