@@ -98,7 +98,7 @@ Test.getFasta = function()
   var bedContent = bedJS.Read(bed);
 
   //Get fasta sequence
-  var fasta = bedJS.Fasta.Get(reference, bedContent);
+  var fasta = bedJS.Fasta.Get(reference, bedContent, { strand: true });
 
   //Show in console
   for(var i = 0; i < fasta.length; i++)
