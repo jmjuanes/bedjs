@@ -1,104 +1,120 @@
 //Import bedJS
 var bedJS = require('../index.js');
 
-//Test function
-var Test =
+//Test object
+var Test = {};
+
+//Show bed file
+Test.showBED = function(bed)
 {
-	//Show bed file
-	ShowBED: function(bed)
-	{
-		//Read the full file
-		for(var i = 0; i < bed.length; i++)
-		{
-			//Show in console
-			console.log(JSON.stringify(bed[i]));
-		}
-	},
+  //Read the full file
+  for(var i = 0; i < bed.length; i++)
+  {
+    //Show in console
+    console.log(JSON.stringify(bed[i]));
+  }
 
-	//Test read a file
-	Read: function()
-	{
-		//Read the test file
-		var bed = bedJS.Read('./test.bed');
+  //Exit
+  return;
+};
 
-		//Show the bed header
-		console.log('>> Bed in JSON:');
+//Test read a file
+Test.read = function()
+{
+  //Read the test file
+  var bed = bedJS.Read('./test.bed');
 
-		//Show the bed
-		Test.ShowBED(bed);
-	},
+  //Show the bed header
+  console.log('>> Bed in JSON:');
 
-	//Test collapse by name
-	CollapseByName: function()
-	{
-		//Read the test file
-		var bed = bedJS.Read('./test.bed');
+  //Show the bed
+  Test.showBED(bed);
 
-		//Collapse BED regions by name
-		var collapsed = bedJS.Collapse.ByName(bed);
+  //Exit
+  return;
+};
 
-		//Show the collapsed regions
-		console.log('>> Collapse BED by region name');
+//Test collapse by name
+Test.collapseByName = function()
+{
+  //Read the test file
+  var bed = bedJS.Read('./test.bed');
 
-		//Show the bed
-		Test.ShowBED(collapsed);
-	},
+  //Collapse BED regions by name
+  var collapsed = bedJS.Collapse.ByName(bed);
 
-	//Test collapse by region
-	CollapseByRegion: function()
-	{
-		//Read the test file
-		var bed = bedJS.Read('./test.bed');
+  //Show the collapsed regions
+  console.log('>> Collapse BED by region name');
 
-		//Collapse BED regions by name
-		var collapsed = bedJS.Collapse.ByRegion(bed);
+  //Show the bed
+  Test.showBED(collapsed);
 
-		//Show the collapsed regions
-		console.log('>> Collapse BED by region');
+  //Exit
+  return;
+};
 
-		//Show the bed
-		Test.ShowBED(collapsed);
-	},
+//Test collapse by region
+Test.collapseByRegion = function()
+{
+  //Read the test file
+  var bed = bedJS.Read('./test.bed');
 
-	//Index a fasta file
-	IndexFasta: function()
-	{
-		//Reference fasta
-		var reference = './getfasta.fa';
+  //Collapse BED regions by name
+  var collapsed = bedJS.Collapse.ByRegion(bed);
 
-		//Index the reference file
-		bedJS.Fasta.Index(reference);
-	},
+  //Show the collapsed regions
+  console.log('>> Collapse BED by region');
 
-	//Get from fasta file
-	GetFasta: function()
-	{
-		//Reference fasta
-		var reference = './getfasta.fa';
+  //Show the bed
+  Test.showBED(collapsed);
 
-		//Bed with region
-		var bed = './getfasta.bed';
+  //Exit
+  return;
+};
 
-		//Read the bed file
-		var bedContent = bedJS.Read(bed);
+//Index a fasta file
+Test.indexFasta = function()
+{
+  //Reference fasta
+  var reference = './getfasta.fa';
 
-		//Get fasta sequence
-		var fasta = bedJS.Fasta.Get(reference, bedContent);
+  //Index the reference file
+  bedJS.Fasta.Index(reference);
 
-		//Show in console
-		for(var i = 0; i < fasta.length; i++)
-		{
-			//Get the bed region
-			var region = bedContent[i];
+  //Exit
+  return;
+},
 
-			//Show region
-			console.log('Region:' + region.chromosome + ':' + region.start + '-' + region.end);
+//Get from fasta file
+Test.getFasta = function()
+{
+  //Reference fasta
+  var reference = './getfasta.fa';
 
-			//Show expected and generated
-			console.log('Expected: ' + region.name + '   Generated: ' + fasta[i].sequence);
-		}
-	}
+  //Bed with region
+  var bed = './getfasta.bed';
 
+  //Read the bed file
+  var bedContent = bedJS.Read(bed);
+
+  //Get fasta sequence
+  var fasta = bedJS.Fasta.Get(reference, bedContent);
+
+  //Show in console
+  for(var i = 0; i < fasta.length; i++)
+  {
+    //Get the bed region
+    var region = bedContent[i];
+
+    //Show region
+    console.log('Region:' + region.chromosome + ':' + region.start + '-' + region.end);
+
+    //Show expected and generated
+    console.log('Expected: ' + region.name + '   Generated: ' + fasta[i].sequence);
+  }
+
+  //Exit
+  return;
 };
 
 //Exports to node
